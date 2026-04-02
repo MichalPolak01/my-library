@@ -1,5 +1,5 @@
 def main():
-    print("Witamy w bibliotece!")
+    print("Witaj w bibliotece!")
     if logIn():
         mainMenu()
 
@@ -18,7 +18,7 @@ def logIn(counter: int = 0) -> bool:
     if counter==3:
         print("Zbyt wiele prób logowania. Konto zablokowane.")
         return False
-
+    
     print("Nieprawidłowy login lub hasło. Spróbuj ponownie. Pozostało prób:", 3-counter)
     return logIn(counter)
 
@@ -33,6 +33,7 @@ def mainMenu():
     match option:
         case "1":
             print("Przeglądanie katalogu...")
+            browseCatalog()
             mainMenu()
         case "2":
             print("Wypożyczanie książki...")
@@ -46,7 +47,24 @@ def mainMenu():
             print("Nieprawidłowa opcja. Spróbuj ponownie.")
             mainMenu()
 
-users=[{"login": "admin", "hasło": "password"},{"login": "user", "hasło": "1234"},{"login": "michal", "hasło": "qwe123"}]
+def browseCatalog():
+    print("\n~ Katalog książek ~\n")
+    for book in books:
+        print(f"{book['name']} - {book['author']} (Dostępne: {book['available']})")
+
+users=[
+    {"login": "michal", "hasło": "qwe123", "role": "czytelnik"},
+    {"login": "adam35", "hasło": "password", "role": "czytelnik"},
+    {"login": "krzys123", "hasło": "1234", "role": "czytelnik"}
+]
+
+books=[
+    {"name": "W pustyni i w puszczy", "author": "Henryk Sienkiewicz", "available": 5},
+    {"name": "Lalka", "author": "Bolesław Prus", "available": 3},
+    {"name": "Pan Tadeusz", "author": "Adam Mickiewicz", "available": 2},
+    {"name": "Zbrodnia i kara", "author": "Fiodor Dostojewski", "available": 4},
+    {"name": "Harry Potter i Kamień Filozoficzny", "author": "J.K. Rowling", "available": 6}
+]
 
 
 if __name__ == "__main__":
