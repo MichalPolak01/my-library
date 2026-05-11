@@ -1,4 +1,5 @@
 class Book:
+    """Klasa reprezentująca książkę w bibliotece"""
     _id_counter = 1
 
     def __init__(self, title, author, total_quantity):
