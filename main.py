@@ -1,3 +1,5 @@
+from models.book import Book
+
 # Główna funkcja wywołująca logowanie i menu główne biblioteki
 def main():
     print("Witaj w bibliotece!")
@@ -105,6 +107,8 @@ books=[
     {"id": 4, "name": "Zbrodnia i kara", "author": "Fiodor Dostojewski", "available": 4},
     {"id": 5, "name": "Harry Potter i Kamień Filozoficzny", "author": "J.K. Rowling", "available": 6}
 ]
+
+
 
 # Tablica słowników wypożyczeń
 loans=[]
