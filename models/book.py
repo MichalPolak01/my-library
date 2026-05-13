@@ -4,8 +4,8 @@ class Book:
 
     def __init__(self, title, author, total_quantity):
         """Inicjalizacja obiektu książki"""
-        if total_quantity <= 0:
-            raise ValueError("Całkowita liczba egzemplarzy musi być większa od zera.")
+        if total_quantity < 0:
+            raise ValueError("Całkowita liczba egzemplarzy musi być większa lub równa zero.")
 
         self.id = self._id_counter
         Book._id_counter += 1
@@ -22,14 +22,14 @@ class Book:
     def borrow(self):
         """Procesowanie wypożyczenia książki"""
         if self._available_quantity <= 0:
-            raise ValueError(f'Wszystkie egzemplarze {self.title} są już wypożyczone.')
+            raise ValueError(f'Niestety, ale wszystkie egzemplarze {self.title} są już wypożyczone.')
 
         self._available_quantity -= 1
 
     def return_book(self):
         """Procesowanie zwrotu książki"""
         if self._available_quantity >= self._total_quantity:
-            raise ValueError(f'Wszystkie egzemplarze {self.title} są już dostępne.')
+            raise ValueError(f'Wszystkie egzemplarze {self.title} są już zwrócone.')
 
         self._available_quantity += 1
 
