@@ -36,27 +36,27 @@ class Reader(User):
         """Inicjalizacja obiektu czytelnika"""
         super().__init__(login, password, role='reader')
         self.borrowed_books = []
+        self.extension_requests = []
 
     def menu(self, library):
         """Metoda menu dla czytelnika, wyświetlająca dostępne opcje"""
         while True:
-            print(f"\n ~~ Menu czytelnika {self.login} ~~\n")
+            print(f"\n~~ Menu czytelnika {self.login} ~~")
             print("1. Przeglądaj katalog książek")
             print("2. Wypożycz książkę")
             print("3. Zwróć książkę")
             print("4. Moje wypożyczenia")
-            print("5. Wyloguj")
+            print("5. Wyślij prośbę o przedłużenie")
+            print("6. Wyloguj")
             option = input("Wybierz opcję: ")
 
             match option:
                 case "1":
                     library.browse_catalog()
                 case "2":
-                    print("\n~ Wypożyczanie książki ~\n")
                     book_title = input("Podaj tytuł książki: ")
                     library.borrow_book(self, book_title)
                 case "3":
-                    print("\n~ Zwracanie książki ~\n")
                     book_title = input("Podaj tytuł książki do zwrotu: ")
                     library.return_book(self, book_title)
                 case "4":
@@ -64,6 +64,9 @@ class Reader(User):
                     for book in library.borrowed_books_by_user(self):
                         print(book)
                 case "5":
+                    book_title = input("Podaj tytuł książki do przedłużenia: ")
+                    library.request_extension(self, book_title)
+                case "6":
                     print("Wylogowano.")
                     break
                 case _:
@@ -76,8 +79,22 @@ class Librarian(User):
         """Inicjalizacja obiektu bibliotekarza"""
         super().__init__(login, password, role='librarian')
 
-    def menu(self):
+    def menu(self, library):
         """Metoda menu dla bibliotekarza, wyświetlająca dostępne opcje"""
-        print(f"Menu bibliotekarza {self.login}:")
-        print("  1. Lista wszystkich wypożyczeń")
-        print("  2. Prośby o przedłużenie")
+        while True:
+            print(f"\n~~ Menu bibliotekarza {self.login} ~~")
+            print("1. Lista wszystkich wypożyczeń")
+            print("2. Obsługa próśb o przedłużenie")
+            print("3. Wyloguj")
+            option = input("Wybierz opcję: ")
+
+            match option:
+                case "1":
+                    library.list_loans()
+                case "2":
+                    library.handle_extension_requests()
+                case "3":
+                    print("Wylogowano.")
+                    break
+                case _:
+                    print("Nieprawidłowa opcja. Spróbuj ponownie.")
