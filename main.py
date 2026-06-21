@@ -6,11 +6,11 @@ from models.user import Reader, Librarian, User
 library = Library()
 
 # Dodanie książek do biblioteki
-library.add_book(Book("W pustyni i w puszczy", "Henryk Sienkiewicz", 5))
-library.add_book(Book("Lalka", "Bolesław Prus", 0))
-library.add_book(Book("Pan Tadeusz", "Adam Mickiewicz", 2))
-library.add_book(Book("Zbrodnia i kara", "Fiodor Dostojewski", 4))
-library.add_book(Book("Harry Potter i Kamień Filozoficzny", "J.K. Rowling", 6))
+library.add_book(Book(title="W pustyni i w puszczy", author="Henryk Sienkiewicz", total_quantity=5))
+library.add_book(Book(title="Lalka", author="Bolesław Prus", total_quantity=0))
+library.add_book(Book(title="Pan Tadeusz", author="Adam Mickiewicz", total_quantity=2))
+library.add_book(Book(title="Zbrodnia i kara", author="Fiodor Dostojewski", total_quantity=4))
+library.add_book(Book(title="Harry Potter i Kamień Filozoficzny", author="J.K. Rowling", total_quantity=6))
 
 # Dodanie użytkowników
 library.add_user(Reader("qwe", "123"))
