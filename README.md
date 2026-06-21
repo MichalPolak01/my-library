@@ -2,12 +2,12 @@
 
 ## Wykonanie: ***Michał Polak***
 
-## Temat projektu: ***Biblioteka — refaktoryzacja do OOP i rola bibliotekarza***
+## Temat projektu: ***Biblioteka — refaktoryzacja do OOP, rola bibliotekarza i programowanie funkcyjne***
 
 ## Opis projektu
-Konsolowa aplikacja do obsługi biblioteki, napisana w języku Python z wykorzystaniem **programowania obiektowego (OOP)**. Program pozwala użytkownikom na logowanie, przeglądanie katalogu książek, wypożyczanie i zwracanie książek. Aplikacja obsługuje dwie role: **Czytelnika** i **Bibliotekarza**, każda z innymi uprawnieniami i funkcjonalnościami. Wszystkie dane są reprezentowane jako obiekty klas: `Book`, `User`, `Reader`, `Librarian` i `Library`.
+Konsolowa aplikacja do obsługi biblioteki, napisana w języku Python z wykorzystaniem **programowania obiektowego (OOP)** oraz **programowania funkcyjnego**. Program pozwala użytkownikom na logowanie, przeglądanie katalogu książek, wypożyczanie i zwracanie książek. Aplikacja obsługuje dwie role: **Czytelnika** i **Bibliotekarza**, każda z innymi uprawnieniami i funkcjonalnościami. Wszystkie dane są reprezentowane jako obiekty klas: `Book`, `User`, `Reader`, `Librarian` i `Library`.
 
-Aplikacja jest rozszerzeniem wersji strukturalnej z Części 1 programu nauczania i zawiera nowe funkcjonalności związane z zarządzaniem biblioteką.
+Aplikacja jest rozszerzeniem wersji strukturalnej z Części 1 programu nauczania i dodatkowo zawiera nowe funkcjonalności z Części 3, zaimplementowane w stylu funkcyjnym: wyszukiwanie, filtrowanie, sortowanie oraz statystyki bibliotekarza.
 
 ## Funkcjonalności
 
@@ -38,7 +38,14 @@ Po zalogowaniu bibliotekarz ma dostęp do następujących opcji:
    - **Zaakceptować** — Prośba zostaje zatwierdzona.
    - **Odrzucić** — Prośba zostaje odrzucona, a czytelnik nie może przedłużyć wypożyczenia.
 
-3. **Wyloguj** — Wylogowanie z systemu.
+3. **Statystyki biblioteki** — Wyświetlenie statystyk biblioteki dla bibliotekarza, w tym najpopularniejsza książka, liczba aktywnych wypożyczeń i lista czytelników.
+4. **Wyloguj** — Wylogowanie z systemu.
+
+### Statystyki bibliotekarza
+W menu bibliotekarza dodano opcję statystyk, która obejmuje:
+- najpopularniejszą książkę (największa różnica między łączną liczbą sztuk a dostępnymi),
+- liczbę aktywnych wypożyczeń ogółem,
+- listę czytelników posortowaną malejąco wg liczby wypożyczonych książek.
 
 ## Wymagania techniczne programu
 
@@ -62,6 +69,14 @@ Operacje biznesowe są zaimplementowane jako metody w klasie `Library`:
 - Wypożyczanie i zwracanie książek
 - Zarządzanie listą wypożyczeń
 - Obsługa próśb o przedłużenie
+
+### Funkcje programowania funkcyjnego
+Nowe funkcjonalności zostały zaimplementowane przy użyciu technik funkcyjnych:
+- wyszukiwanie i filtrowanie katalogu za pomocą `filter`/`lambda` i list comprehension,
+- sortowanie katalogu za pomocą `sorted(..., key=lambda ...)`,
+- rezerwacja niedostępnych książek i informacja o rezerwacjach przy obsłudze próśb o przedłużenie,
+- statystyki bibliotekarza obliczane przy użyciu comprehension i funkcji wbudowanych,
+- funkcja wyższego rzędu `display_collection(...)`, która przyjmuje funkcję jako argument.
 
 ## Struktura Klas i Danych
 

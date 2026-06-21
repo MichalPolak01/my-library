@@ -1,4 +1,6 @@
-class User:
+from abc import ABC, abstractmethod
+
+class User(ABC):
     """Klasa reprezentująca użytkownika systemu bibliotecznego"""
     _id_counter = 1
 
@@ -16,9 +18,16 @@ class User:
             return True
         return False
 
+    @abstractmethod
     def menu(self):
         """Metoda menu, która powinna być zaimplementowana w klasach potomnych"""
         raise NotImplementedError("Metoda menu() musi być zaimplementowana w klasie potomnej.")
+    
+    @abstractmethod
+    def role_name(self):
+        """Metoda zwracająca nazwę roli użytkownika, powinna być zaimplementowana w klasach potomnych"""
+        raise NotImplementedError("Metoda role_name() musi być zaimplementowana w klasie potomnej.")
+
 
     def __str__(self):
         """Reprezentacja tekstowa użytkownika"""
@@ -37,6 +46,7 @@ class Reader(User):
         super().__init__(login, password, role='reader')
         self.borrowed_books = []
         self.extension_requests = []
+        self.reservation_requests = []
 
     def menu(self, library):
         """Metoda menu dla czytelnika, wyświetlająca dostępne opcje"""
@@ -63,6 +73,9 @@ class Reader(User):
                     print("\nTwoje wypożyczenia:")
                     for book in library.borrowed_books_by_user(self):
                         print(book)
+                    print("\nTwoje prośby o rezerwację:")
+                    for book in library.requested_books_by_user(self):
+                        print(book)
                 case "5":
                     book_title = input("Podaj tytuł książki do przedłużenia: ")
                     library.request_extension(self, book_title)
@@ -71,6 +84,10 @@ class Reader(User):
                     break
                 case _:
                     print("Nieprawidłowa opcja. Spróbuj ponownie.")
+
+    def role_name(self):
+        """Zwraca nazwę roli użytkownika"""
+        return "Czytelnik"
 
 class Librarian(User):
     """Klasa reprezentująca bibliotekarza, dziedzicząca po klasie User"""
@@ -85,7 +102,8 @@ class Librarian(User):
             print(f"\n~~ Menu bibliotekarza {self.login} ~~")
             print("1. Lista wszystkich wypożyczeń")
             print("2. Obsługa próśb o przedłużenie")
-            print("3. Wyloguj")
+            print("3. Statystyki biblioteki")
+            print("4. Wyloguj")
             option = input("Wybierz opcję: ")
 
             match option:
@@ -94,7 +112,13 @@ class Librarian(User):
                 case "2":
                     library.handle_extension_requests()
                 case "3":
+                    library.library_stats()
+                case "4":
                     print("Wylogowano.")
                     break
                 case _:
                     print("Nieprawidłowa opcja. Spróbuj ponownie.")
+
+    def role_name(self):
+        """Zwraca nazwę roli użytkownika"""
+        return "Bibliotekarz"
